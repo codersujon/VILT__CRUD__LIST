@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -17,6 +18,12 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+// Topics start
+Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
+Route::get('/topics/create', [TopicController::class, 'create'])->name('topics.create');
+Route::post('/topics/store', [TopicController::class, 'store'])->name('topics.store');
+// End
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
