@@ -50,7 +50,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 py-5">
                                     <Link :href="route('topics.edit', topic.id)" class="text-md mx-1 bg-blue-600 text-white px-2 py-1 rounded">Edit</Link>
-                                    <Link :href="route('topics.edit', topic.id)" class="text-md mx-1 bg-red-600 text-white px-2 py-1 rounded">Delete</Link>
+                                    <Link :href="route('topics.delete', topic.id)" method="delete" as="button" class="text-md mx-1 bg-red-600 text-white px-2 py-1 rounded">Delete</Link>
                                 </td>
                             </tr>
                         </tbody>

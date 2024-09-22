@@ -73,4 +73,18 @@ class TopicController extends Controller
         return redirect()->route('topics.index')->with('success', "Topic Updated Successfully!");
     }
 
+    /**
+     * Destroy
+     */
+
+     public function destroy(Topic $topic){
+        //unlink
+        $filepath = "public/storage/topics/" . $topic->image;
+        if(Storage::exists($filepath)){
+            Storage::delete($filepath);
+        }
+        $topic->delete();
+        return redirect()->route('topics.index')->with('success', "Topic Deleted Successfully!");
+     }
+
 }
