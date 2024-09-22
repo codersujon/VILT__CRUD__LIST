@@ -13,7 +13,13 @@ class TopicController extends Controller
      */
     public function index(){
         // $topics = Topic::all();
-        return Inertia::render('Topics/Index', ['topics' => Topic::all()]);
+        return Inertia::render('Topics/Index', ['topics' => Topic::all()->map(function($topic){
+            return [
+                'id' => $topic->id,
+                'name' => $topic->name,
+                'image' => asset('storage/'. $topic->image)
+            ];
+        })]);
     }
 
     /**

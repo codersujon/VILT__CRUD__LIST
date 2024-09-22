@@ -23,6 +23,7 @@
 
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                
                 <div class="flex p-2 m-2">
                     <Link :href="route('topics.index')"
                         class="px-4 py-2 rounded bg-rose-500 hover:bg-rose-600 text-white">Back</Link>
@@ -74,6 +75,7 @@
                     </form>
                 </div>
                 <!-- end -->
+
             </div>
         </div>
 
