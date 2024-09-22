@@ -1,14 +1,35 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link, useForm } from '@inertiajs/vue3';
+    import Swal from 'sweetalert2';
 
     const form = useForm({
         name: null,
         file: null,
     });
 
-    const storeTopic = () =>{
-        form.post('/topics/store')
+    const storeTopic = async () =>{
+        try{
+            await form.post('/topics/store', {
+                onSuccess: page => {
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        },
+                        title: page.props.flash.success
+                    });
+                }
+            })
+        }catch(error){
+            console.log(error);
+        }
     }
 
 </script>

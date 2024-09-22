@@ -39,8 +39,7 @@ class TopicController extends Controller
             'image' => $image,
         ]);
 
-        return redirect()->route('topics.index');
+        return redirect()->route('topics.index')->with('success', "Topic Create Successfully!");
     }
-
 
 }

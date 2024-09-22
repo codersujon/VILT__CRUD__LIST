@@ -49,7 +49,8 @@
                                         :alt="topic.name" class="w-16 h-16 object-cover rounded" />
                                 </td>
                                 <td class="p-4 border-b border-slate-200 py-5">
-                                  
+                                   <button type="button" class="text-lg mx-1 bg-blue-600 text-white px-4 py-1 rounded">Edit</button>
+                                   <button type="button" class="text-lg mx-1 bg-red-600 text-white px-4 py-1 rounded">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
