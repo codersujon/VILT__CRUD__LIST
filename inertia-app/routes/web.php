@@ -23,6 +23,8 @@ Route::get('/dashboard', function () {
 Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
 Route::get('/topics/create', [TopicController::class, 'create'])->name('topics.create');
 Route::post('/topics/store', [TopicController::class, 'store'])->name('topics.store');
+Route::get('/topics/{topic}/edit', [TopicController::class, 'edit'])->name('topics.edit');
+Route::put('/topics/{topic}', [TopicController::class, 'update'])->name('topics.update');
 // End
 
 Route::middleware('auth')->group(function () {
