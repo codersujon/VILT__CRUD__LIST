@@ -60,8 +60,8 @@ class TopicController extends Controller
 
         $image = $topic->image;
         if($request->file('image')){
-            //unlink previous images
-            Storage::delete('public/' . $topic->image);
+            $image_path = public_path('storage/'.$topic->image);
+            unlink($image_path);
             $image = $request->file('image')->store('topics', 'public');
         }
 
@@ -78,13 +78,14 @@ class TopicController extends Controller
      */
 
      public function destroy(Topic $topic){
-        //unlink
-        $filepath = "public/storage/topics/" . $topic->image;
-        if(Storage::exists($filepath)){
-            Storage::delete($filepath);
+        // Delete Image from Storage
+        $image_path = public_path('storage/'.$topic->image);
+        if(file_exists($image_path)){
+            unlink($image_path);
         }
         $topic->delete();
         return redirect()->route('topics.index')->with('success', "Topic Deleted Successfully!");
      }
 
 }
+
