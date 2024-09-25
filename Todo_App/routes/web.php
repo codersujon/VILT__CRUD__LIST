@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -14,14 +15,31 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Auth, Verified Middleware
+Route::middleware(['auth', 'verified'])->group(function(){
 
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
+
+    // Todos Controller Group
+    Route::controller(TodoController::class)->group(function(){
+        Route::get('/todos', 'index')->name('todos');
+        Route::post('/todos', 'store')->name('todos.store');
+        Route::put('/todos/{todo}/update', 'update')->name('todos.update');
+    });
+
+});
+
+
+// Auth Middleware
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // Profile Controller Group
+    Route::controller(ProfileController::class)->group(function(){
+        Route::get('/profile', 'edit')->name('profile.edit');
+        Route::patch('/profile', 'update')->name('profile.update');
+        Route::delete('/profile', 'destroy')->name('profile.destroy');
+    });
 });
 
 require __DIR__.'/auth.php';
