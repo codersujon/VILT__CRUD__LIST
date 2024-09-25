@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function(){
         Route::get('/todos', 'index')->name('todos');
         Route::post('/todos', 'store')->name('todos.store');
         Route::put('/todos/{todo}/update', 'update')->name('todos.update');
+        Route::delete('/todos/{todo}', 'destroy')->name('todos.destroy');
     });
 
 });

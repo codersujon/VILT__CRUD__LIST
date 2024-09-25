@@ -37,6 +37,7 @@ import Swal from 'sweetalert2';
             console.log(err)
         }
     }
+
     // Props Define
     const props = defineProps({
         todos: Array
@@ -49,6 +50,33 @@ import Swal from 'sweetalert2';
        } catch (error) {
             console.log(error);
        }
+    }
+
+    // Todo Delete
+    const deleteToto = async (todo) =>{
+        try {
+            await router.delete('/todos/' + todo.id, {
+                onSuccess: page => {
+                    
+                    Swal.fire({
+                        toast: true,
+                        position: "top-end",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.onmouseenter = Swal.stopTimer;
+                            toast.onmouseleave = Swal.resumeTimer;
+                        },
+                        title: page.props.flash.success
+                    });
+
+                }
+            });
+        } catch (error) {
+            
+        }
     }
 
     
@@ -87,7 +115,7 @@ import Swal from 'sweetalert2';
                         <button v-else class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded-lg border-green text-white bg-green-500 hover:bg-green-700" @click="handleStatus(todo)">Done</button>
               
 
-                        <button class="flex-no-shrink p-2 ml-2 border-2 rounded-lg text-red border-red text-white bg-red-500 hover:bg-red-700">Remove</button>
+                        <button class="flex-no-shrink p-2 ml-2 border-2 rounded-lg text-red border-red text-white bg-red-500 hover:bg-red-700" @click="deleteToto(todo)">Remove</button>
                     </div>
                 </div>
             </div>
