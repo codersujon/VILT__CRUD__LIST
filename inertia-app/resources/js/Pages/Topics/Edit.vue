@@ -10,16 +10,16 @@
 
     const form = useForm({
         name: props.topic.name,
-        file: null,
+        file: props.topic.image,
     });
 
     const updateTopic = async () =>{
         try{
-            await router.post(`/topics/${props.topic.id}`, {
+            await router.post(`/topics/${props.topic.id}`, form, {
 
-                _method: 'put',
-                name: form.name,
-                image: form.file,
+                // _method: 'put',
+                // name: form.name,
+                // image: form.file,
 
                 onSuccess: page => {
                     Swal.fire({

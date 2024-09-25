@@ -1,11 +1,47 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, router } from '@inertiajs/vue3';
+    import Swal from 'sweetalert2';
 
     // topics props
     const props = defineProps({
         topics: Array
     });
+
+    // Delete Topic
+    const deleteTopic = (topic, index) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#009432",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            cancelButtonText: "No",
+        }).then((result)=>{
+                if(result.isConfirmed){
+
+                    try {
+                    router.delete('topics/' + topic.id, {
+                        onSuccess: (page) => {
+                            Swal.fire({
+                                toast: true,
+                                position: "top-end",
+                                icon: "success",
+                                showConfirmButton: false,
+                                title: page.props.flash.success
+                            });
+                        }
+                    });
+
+                    } catch (error) {
+                        console.log(error);
+                    }
+
+                }
+        });
+    }   
 
 </script>
 
@@ -50,7 +86,7 @@
                                 </td>
                                 <td class="p-4 border-b border-slate-200 py-5">
                                     <Link :href="route('topics.edit', topic.id)" class="text-md mx-1 bg-blue-600 text-white px-2 py-1 rounded">Edit</Link>
-                                    <Link :href="route('topics.delete', topic.id)" method="delete" as="button" class="text-md mx-1 bg-red-600 text-white px-2 py-1 rounded">Delete</Link>
+                                    <button type="button" class="text-md mx-1 bg-red-600 text-white px-2 py-1 rounded" @click="deleteTopic(topic, index)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
