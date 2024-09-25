@@ -75,7 +75,7 @@ import Swal from 'sweetalert2';
                 }
             });
         } catch (error) {
-            
+            console.log(error);
         }
     }
 
