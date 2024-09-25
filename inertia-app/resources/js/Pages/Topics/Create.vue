@@ -1,6 +1,6 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, Link, useForm } from '@inertiajs/vue3';
+    import { Head, Link, useForm, router } from '@inertiajs/vue3';
     import Swal from 'sweetalert2';
 
     const form = useForm({
@@ -8,9 +8,10 @@
         file: null,
     });
 
-    const storeTopic = async () =>{
+    // Topic Create
+    const topicStore = async () =>{
         try{
-            await form.post('/topics/store', {
+            await router.post('/topics/store/', form, {
                 onSuccess: page => {
                     Swal.fire({
                         toast: true,
@@ -31,7 +32,7 @@
             console.log(error);
         }
     }
-
+    
 </script>
 
 <template>
@@ -52,7 +53,7 @@
 
                 <!-- form start -->
                 <div class="mx-auto w-full max-w-[550px] bg-white rounded">
-                    <form class="py-6 px-9" @submit.prevent="storeTopic">
+                    <form class="py-6 px-9" @submit.prevent="topicStore()">
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -88,7 +89,7 @@
                             </div>
                         </div>
                         <div>
-                            <button
+                            <button type="submit"
                                 class="hover:shadow-form w-full rounded-md bg-blue-500 hover:bg-blue-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
                                 Create
                             </button>

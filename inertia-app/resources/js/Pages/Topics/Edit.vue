@@ -13,15 +13,12 @@
         file: props.topic.image,
     });
 
-    const updateTopic = async () =>{
-        try{
-            await router.post(`/topics/${props.topic.id}`, form, {
-
-                // _method: 'put',
-                // name: form.name,
-                // image: form.file,
-
+   // Update Topic
+    const updateTopic = async ()=> {
+            try{
+            await router.post('/topics/update/' + props.topic.id, form, {
                 onSuccess: page => {
+                    
                     Swal.fire({
                         toast: true,
                         position: "top-end",
@@ -35,10 +32,11 @@
                         },
                         title: page.props.flash.success
                     });
+
                 }
-            })
-        }catch(error){
-            console.log(error);
+            });
+        }catch(err){
+            console.log(err);
         }
     }
 
@@ -62,7 +60,7 @@
 
                 <!-- form start -->
                 <div class="mx-auto w-full max-w-[550px] bg-white rounded">
-                    <form class="py-6 px-9" @submit.prevent="updateTopic">
+                    <form class="py-6 px-9" @submit.prevent="updateTopic()">
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">
@@ -101,7 +99,7 @@
                             </div>
                         </div>
                         <div>
-                            <button
+                            <button type="submit"
                                 class="hover:shadow-form w-full rounded-md bg-green-500 hover:bg-green-600 py-3 px-8 text-center text-base font-semibold text-white outline-none">
                                 Update
                             </button>

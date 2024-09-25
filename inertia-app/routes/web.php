@@ -20,12 +20,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 // Topics start
-Route::get('/topics', [TopicController::class, 'index'])->name('topics.index');
-Route::get('/topics/create', [TopicController::class, 'create'])->name('topics.create');
-Route::post('/topics/store', [TopicController::class, 'store'])->name('topics.store');
-Route::get('/topics/{topic}/edit', [TopicController::class, 'edit'])->name('topics.edit');
-Route::post('/topics/{topic}', [TopicController::class, 'update'])->name('topics.update');
-Route::delete('/topics/{topic}', [TopicController::class, 'destroy'])->name('topics.delete');
+    Route::controller(TopicController::class)->group(function(){
+        Route::get('/topics', 'index')->name('topics.index');
+        Route::get('/topics/create', 'create')->name('topics.create');
+        Route::post('/topics/store', 'store')->name('topics.store');
+        Route::get('/topics/{topic}/edit','edit')->name('topics.edit');
+        Route::delete('/topics/{topic}', 'destroy')->name('topics.delete');
+        Route::post('/topics/update/{topic}', 'update')->name('topics.update');
+    });
 // End
 
 Route::middleware('auth')->group(function () {

@@ -58,11 +58,11 @@ class TopicController extends Controller
      */
     public function update(Request $request, Topic $topic){
 
-        $image = $topic->image;
-        if($request->file('image')){
+        $image = $topic->file;
+        if($request->file('file')){
             $image_path = public_path('storage/'.$topic->image);
             unlink($image_path);
-            $image = $request->file('image')->store('topics', 'public');
+            $image = $request->file('file')->store('topics', 'public');
         }
 
         $topic->update([
